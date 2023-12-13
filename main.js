@@ -21,7 +21,7 @@ document.getElementById('quizForm').addEventListener('submit', function (event) 
 
   const average = (q1 + q2 + q3 + q4 + q5) / 5;
 
-  if (average >= 3.5) {
+  if (average >= 3.8) {
     setTimeout(() => {
       window.location.href = 'https://g.page/r/CRhv9MEXcPkFEAI/review';
     }, 4000);
