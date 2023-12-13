@@ -23,7 +23,7 @@ document.getElementById('quizForm').addEventListener('submit', function (event) 
 
   if (average >= 3.5) {
     setTimeout(() => {
-      window.location.href = 'https://fr.trustpilot.com/evaluate/nosdemenageurs.fr';
+      window.location.href = 'https://search.google.com/local/writereview?placeid=ChIJZfjKVKSUCgQRGG_0wRdw-QU';
     }, 4000);
     document.getElementById('quizForm').reset();
     goodModal.style.display = "block";
