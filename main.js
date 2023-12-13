@@ -23,7 +23,7 @@ document.getElementById('quizForm').addEventListener('submit', function (event) 
 
   if (average >= 3.5) {
     setTimeout(() => {
-      window.location.href = 'https://search.google.com/local/writereview?placeid=ChIJZfjKVKSUCgQRGG_0wRdw-QU';
+      window.location.href = 'https://g.page/r/CRhv9MEXcPkFEAI/review';
     }, 4000);
     document.getElementById('quizForm').reset();
     goodModal.style.display = "block";
