@@ -23,7 +23,7 @@ document.getElementById('quizForm').addEventListener('submit', function (event) 
 
   if (average >= 3.8) {
     setTimeout(() => {
-      window.location.href = 'https://g.page/r/CRhv9MEXcPkFEAI/review';
+      window.location.href = 'https://fr.trustpilot.com/evaluate/rapid-trans.fr';
     }, 2000);
     document.getElementById('quizForm').reset();
     goodModal.style.display = "block";
