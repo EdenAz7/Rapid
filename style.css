@@ -67,13 +67,13 @@ input[type="submit"] {
   width: 100%;
   padding: 15px;
   border-radius: 8px;
-  background-color: #47ae30;
+  background-color: #11b25c;
   color: white;
   cursor: pointer;
 }
 
 input[type="submit"]:hover {
-  background-color: #104711;
+  background-color: #074e09;
 }
 
 /* Modal Styles - check if needed */
