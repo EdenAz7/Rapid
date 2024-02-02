@@ -1,49 +1,55 @@
-// Get the modal
 var badModal = document.getElementById("badModal");
 var goodModal = document.getElementById("goodModal");
+const ratings = document.querySelectorAll('.rating');
 
-document.getElementById('quizForm').addEventListener('submit', function (event) {
+ratings.forEach(rating => {
+  for (let i = 1; i <= 5; i++) {
+    const star = document.createElement('span');
+    star.classList.add('star');
+    star.innerHTML = '★';
+    star.addEventListener('click', () => rateQuestion(rating, i));
+    rating.appendChild(star);
+  }
+});
+
+function rateQuestion(rating, value) {
+  const stars = rating.querySelectorAll('.star');
+  stars.forEach((star, index) => {
+    star.classList.toggle('active', index < value);
+  });
+}
+
+document.getElementById('quiz-container').addEventListener('submit', function (event) {
   event.preventDefault();
-  const q1 = parseInt(document.getElementById('q1').value);
-  const q2 = parseInt(document.getElementById('q2').value);
-  const q3 = parseInt(document.getElementById('q3').value);
-  const q4 = parseInt(document.getElementById('q4').value);
-  const q5 = parseInt(document.getElementById('q5').value);
-  const sliders = document.querySelectorAll('input[type="range"]');
-  sliders.forEach((slider) => {
-    const spanId = slider.id + 'Value';
-    const span = document.getElementById(spanId);
-    span.textContent = slider.value; // Set initial value
-    slider.addEventListener('input', function () {
-      span.textContent = this.value;
-    });
+  const values = Array.from(ratings).map(rating => {
+    const stars = rating.querySelectorAll('.star');
+    const activeStars = Array.from(stars).filter(star => star.classList.contains('active')).length;
+    if (activeStars === 0) {
+      alert('Veuillez évaluer toutes les questions avant de soumettre.');
+      throw new Error('Unrated question found');
+    }
+    return activeStars;
   });
 
-  const average = (q1 + q2 + q3 + q4 + q5) / 5;
+  const average = values.reduce((acc, val) => acc + val, 0) / values.length;
+
+
 
   if (average >= 3.8) {
     setTimeout(() => {
-      window.location.href = 'https://fr.trustpilot.com/evaluate/rapid-trans.fr';
+      window.location.href = 'https://fr.trustpilot.com/evaluate/vizit-demenagement.fr';
     }, 2000);
-    document.getElementById('quizForm').reset();
     goodModal.style.display = "block";
   } else {
-    // alert("C'est triste à entendre, nous essaierons de faire de notre mieux pour améliorer nos services.");
     setTimeout(() => {
       document.body.innerHTML = '';
       setTimeout(() => {
-        window.close()
-      }, 1000)
-    }, 4000);
-    document.getElementById('quizForm').reset();
+        window.close();
+      }, 1000);
+    }, 3000);
     badModal.style.display = "block";
   }
-
 });
-
 function updateValue(spanId, value) {
   document.getElementById(spanId).textContent = value;
 }
-
-
-
