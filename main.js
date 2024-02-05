@@ -37,7 +37,7 @@ document.getElementById('quiz-container').addEventListener('submit', function (e
 
   if (average >= 3.8) {
     setTimeout(() => {
-      window.location.href = 'https://fr.trustpilot.com/evaluate/vizit-demenagement.fr';
+      window.location.href = 'https://fr.trustpilot.com/evaluate/rapid-trans.fr';
     }, 2000);
     goodModal.style.display = "block";
   } else {
