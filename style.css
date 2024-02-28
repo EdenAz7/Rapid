@@ -116,10 +116,3 @@ input[type="submit"]:hover {
 
   /* Adjust other styles as needed for smaller screens */
 }
-#loginButton{
-  background-color: #f5f5f5;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
