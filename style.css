@@ -49,13 +49,13 @@ h1 {
   width: 100%;
   padding: 15px;
   border-radius: 8px;
-  background-color: #c96060;
+  background-color: #65c960;
   color: white;
   cursor: pointer;
 }
 
 input[type="submit"]:hover {
-  background-color: #ba4040;
+  background-color: #1d7f36;
 }
 
 /* Modal Styles - check if needed */
