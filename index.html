@@ -12,8 +12,14 @@
 <body>
   <form id="quiz-container" method="POST">
 
-    <h1 id="header">Enquête sur nos services <br> <img src="LOGO-RAPID-TRANS-removebg-preview.png" alt="" width="200px"></h1>
+    <h1 id="header">Enquête sur nos services <br> <img src="LOGO-RAPID-TRANS-removebg-preview.png" alt="" width="200px">
+    </h1>
     <h3>Sur une échelle de 1 (Mauvais) à 5 (Parfait)</h3><br>
+    <div class="question">
+      <div class="control">
+        <input class="input" type="text" placeholder="Votre nom complet" name="Nom Complet" />
+      </div>
+    </div>
     <div class="question">
       <p>1. Étiez-vous satisfait du processus de planification de votre déménagement?</p>
       <div class="rating" data-question="1"></div>
@@ -69,96 +75,96 @@
   </div>
 </body>
 <script>
-var badModal = document.getElementById("badModal");
-var goodModal = document.getElementById("goodModal");
-const ratings = document.querySelectorAll('.rating');
+  var badModal = document.getElementById("badModal");
+  var goodModal = document.getElementById("goodModal");
+  const ratings = document.querySelectorAll('.rating');
 
-ratings.forEach(rating => {
-  for (let i = 1; i <= 5; i++) {
-    const star = document.createElement('span');
-    star.classList.add('star');
-    star.innerHTML = '★';
-    star.addEventListener('click', () => rateQuestion(rating, i));
-    rating.appendChild(star);
-  }
-});
-
-function rateQuestion(rating, value) {
-  const stars = rating.querySelectorAll('.star');
-  stars.forEach((star, index) => {
-    star.classList.toggle('active', index < value);
+  ratings.forEach(rating => {
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement('span');
+      star.classList.add('star');
+      star.innerHTML = '★';
+      star.addEventListener('click', () => rateQuestion(rating, i));
+      rating.appendChild(star);
+    }
   });
-}
 
-document.getElementById('quiz-container').addEventListener('submit', function (event) {
-  event.preventDefault();
-  const values = Array.from(ratings).map(rating => {
+  function rateQuestion(rating, value) {
     const stars = rating.querySelectorAll('.star');
-    const activeStars = Array.from(stars).filter(star => star.classList.contains('active')).length;
-    if (activeStars === 0) {
-      alert('Veuillez évaluer toutes les questions avant de soumettre.');
-      throw new Error('Unrated question found');
-    }
-    return activeStars;
-  });
-
-  const average = values.reduce((acc, val) => acc + val, 0) / values.length;
-
-  // Collect the form data
-  const formData = new FormData(this);
-  const formDataJson = {};
-  for (var pair of formData.entries()) {
-    formDataJson[pair[0]] = pair[1];
+    stars.forEach((star, index) => {
+      star.classList.toggle('active', index < value);
+    });
   }
 
-  // Send a POST request to your Google Apps Script
-  fetch(
-    "https://script.google.com/macros/s/AKfycbxJJcypj99oWTNBcb7bTbNB0n9KgqyGiVi96f1RS-Cvf9b89s_nBRKQR7U8Z_3XUu5Mkg/exec",
-    {
-      redirect: "follow",
-      method: "POST",
-      body: JSON.stringify(formDataJson),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-    .then(function (response) {
-      // Check if the request was successful
-      if (response.ok) {
-        return response.json(); // Assuming your script returns JSON response
-      } else {
-        throw new Error("Failed to submit the form.");
+  document.getElementById('quiz-container').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const values = Array.from(ratings).map(rating => {
+      const stars = rating.querySelectorAll('.star');
+      const activeStars = Array.from(stars).filter(star => star.classList.contains('active')).length;
+      if (activeStars === 0) {
+        alert('Veuillez évaluer toutes les questions avant de soumettre.');
+        throw new Error('Unrated question found');
       }
-    })
-    .then(function (data) {
-      // Display a success message
-      if (average >= 3.8) {
-        setTimeout(() => {
-          window.location.href = 'https://fr.trustpilot.com/evaluate/rapid-trans.fr';
-        }, 2000);
-        goodModal.style.display = "block";
-      } else {
-        setTimeout(() => {
-          document.body.innerHTML = '';
-          setTimeout(() => {
-            window.close();
-          }, 1000);
-        }, 3000);
-        badModal.style.display = "block";
-      }
-    })
-    .catch(function (error) {
-      // Handle errors, you can display an error message here
-      console.error(error);
-      document.getElementById("message").textContent =
-        "An error occurred while submitting the form.";
-      document.getElementById("message").style.display = "block";
+      return activeStars;
     });
-});
-function updateValue(spanId, value) {
-  document.getElementById(spanId).textContent = value;
-}
+
+    const average = values.reduce((acc, val) => acc + val, 0) / values.length;
+
+    // Collect the form data
+    const formData = new FormData(this);
+    const formDataJson = {};
+    for (var pair of formData.entries()) {
+      formDataJson[pair[0]] = pair[1];
+    }
+
+    // Send a POST request to your Google Apps Script
+    fetch(
+      "https://script.google.com/macros/s/AKfycbxJJcypj99oWTNBcb7bTbNB0n9KgqyGiVi96f1RS-Cvf9b89s_nBRKQR7U8Z_3XUu5Mkg/exec",
+      {
+        redirect: "follow",
+        method: "POST",
+        body: JSON.stringify(formDataJson),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then(function (response) {
+        // Check if the request was successful
+        if (response.ok) {
+          return response.json(); // Assuming your script returns JSON response
+        } else {
+          throw new Error("Failed to submit the form.");
+        }
+      })
+      .then(function (data) {
+        // Display a success message
+        if (average >= 3.8) {
+          setTimeout(() => {
+            window.location.href = 'https://fr.trustpilot.com/evaluate/rapid-trans.fr';
+          }, 2000);
+          goodModal.style.display = "block";
+        } else {
+          setTimeout(() => {
+            document.body.innerHTML = '';
+            setTimeout(() => {
+              window.close();
+            }, 1000);
+          }, 3000);
+          badModal.style.display = "block";
+        }
+      })
+      .catch(function (error) {
+        // Handle errors, you can display an error message here
+        console.error(error);
+        document.getElementById("message").textContent =
+          "An error occurred while submitting the form.";
+        document.getElementById("message").style.display = "block";
+      });
+  });
+  function updateValue(spanId, value) {
+    document.getElementById(spanId).textContent = value;
+  }
 </script>
 
 </html>
